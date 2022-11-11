@@ -1,4 +1,6 @@
 #coding:utf8
+from Utils import * 
+from Trace import * 
 
 with open("trameTest.txt","r") as fichier:
 	contenu=fichier.readlines()
@@ -14,7 +16,6 @@ i=0
 
 for line in lineBis:
 	d=int(line[0],base=16)
-	print(len(trames))
 	if d==0 and i!=0:
 		if len(trames)==0:
 			trames=[ligneI] 
@@ -26,7 +27,7 @@ for line in lineBis:
 	ligneI.extend(lineSansOffset)
 	i+=1
 
-trames.append(ligneI)
-print(trames)
-
-
+"""trames.append(ligneI)
+print(trames)"""
+trace=Trace(trames)
+trace.affiche()

@@ -6,5 +6,10 @@ class Trames:
 		self.type=trame[24:28]
 		self.data=trame[28:]
 
+	def analyser(self):
+		if(self.type=="0800"):
+			ip=IPv4(self.data)
+			return ip.analyer()
+		else:
+			return None
 
-	
