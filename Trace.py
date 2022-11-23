@@ -3,6 +3,7 @@ class Trace:
 	def __init__(self,data):
 		self.listeDeTrames=[]
 		for trame in data:
+			print(trame)
 			self.listeDeTrames.append(parseTrame(trame))
 
 	def affiche(self):
