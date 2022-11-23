@@ -1,49 +1,48 @@
-from Utils import *
+
+import Ethernet
 import IPv4
-PATHREFERENCES = "./referances/"
-OUTPUTPATH = "./output/"
-
-with open(PATHREFERENCES+"typeEthernet.txt", "r")as typeEthe:
-    typeEthe.readline()
-    types = []
-    for line in typeEthe:
-        split = line.split(" ",1)
-        types.append((split[0], split[1].rstrip()))
-typeEthe.close()
-TYPES = dict(types)
-
-
+import Tcp
+from Utils import hexToDec
 class Trame:
-	id = 1
-	def __init__(self,trame):
-		if(len(trame)>28):
-			self.trame = trame.lower()
-			self.entete = trame[0:28]
-			self.id = Trame.id
-			self.adresseDest = trame[0:12]
-			self.adresseSource = trame[12:24]
-			self.type = { "Hexadecimal": self.entete[24:28], "Definition": TYPES[self.entete[24:28]]}
-			self.data = trame[28:]
-			if(self.type["Hexadecimal"]=="0800"):
-				self.paquet = IPv4.IPv4(self.data)
-			Trame.id += 1
+	id=1
+	def __init__(self, ligne):
+		self.trame=ligne.upper()
+		self.id = Trame.id
+		self.ethernet=None
+		self.ipv4=None
+		self.tcp=None
+		Trame.id += 1
 
-	def analyser(self):
-		if(self.type["Hexadecimal"]=="0800"):
-			ip=IPv4(self.data)
-			return ip.analyer()
+
+
+	def analyse(self):
+		resuletatString="Trame numero {}:\n".format(self.id)
+		suite=""
+		print(len(self.trame))
+		if (len(self.trame)>14):
+			self.ethernet=Ethernet.Ethernet(self.trame)
+			suite+=self.ethernet.toString()
+
+			if(self.ethernet.type["Hexadecimal"]=="0800"):
+				if(len(self.ethernet.data)>20):
+					self.ipv4=IPv4.IPv4(self.ethernet.data)
+					suite+=self.ipv4.toString()
+					if(hexToDec(self.ipv4.protocol)==6):
+						#self.tcp=Tcp(self.ipv4.data)
+						print("Fin :{}".format(self.ipv4.data))
+					else:
+						suite="Protocole encapsulé dans le paquest ip non traité(couche3)"
+				else:	
+					suite="Taille du paquet ip trop petite(couche3)"
+			else:
+				suite="Protocole encapsulé  dans la trame ethernet non traité(couche2)"
 		else:
-			return None
-	def toString(self):
-		return "Trame numero {}:\nEthernet:\n\tAdresse MAC Destination: {}\n\tAdresse MAC Source: {}\n\tType (Ox{}): {}".format(self.id, self.adresseDest, self.adresseSource, self.type["Hexadecimal"], self.type["Definition"])
-"""
-	def toDict(self):
-        dictStr = '"Trame numero {}":'.format(self.id)
-        dictStr += '{"Ethernet":'
-        dictStr += '{{"Adresse MAC Destination":"{}","Adresse Mac Source":"{}","Type":{{"hexa":"{}","Definition":"{}"}}}},'.format(
-            self.destMac, self.srcMac, "0x"+self.type["Hexadecimal"], self.type["Definition"])
-        dictStr += self.paquet.toDict()
-        dictStr += '}'
-        return dictSt
+			suite="Trame de longeur insuffisante(couche2)"
 
-"""
+		resuletatString+=suite
+		return (resuletatString)
+
+
+trame=Trame("08002087b04408001108c06308004500004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029eafc81589070")
+r1=trame.analyse()
+print("{}".format(r1))

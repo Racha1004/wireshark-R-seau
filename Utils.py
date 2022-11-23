@@ -14,3 +14,14 @@ def parseTrame(liste):
 	stringValeurs+=''.join(liste)
 	stringValeurs=stringValeurs.replace('\n','')
 	return stringValeurs
+
+def formatMACAdress(adressMAC):
+	res = adressMAC[0:2] + ":" + adressMAC[2:4] + ":" + adressMAC[4:6] + \
+		":" + adressMAC[6:8] + ":" + adressMAC[8:10] + ":" + adressMAC[10:12]
+	return res
+
+def formatIPAdress(adressIP):
+	return "{}.{}.{}.{}".format(hexToDec(adressIP[0:2]),
+								hexToDec(adressIP[2:4]),
+								hexToDec(adressIP[4:6]),
+								hexToDec(adressIP[6:8]))
