@@ -31,8 +31,6 @@ def tramesValides(nameFile):
 		lignes=fichier.readlines()
 
 		for ligne in lignes:
-			pos=0
-
 			ligne=ligne.rstrip()
 			if(len(ligne)!=0):
 
@@ -42,14 +40,10 @@ def tramesValides(nameFile):
 
 				splitted=ligne.split(" ")
 
-				print(splitted)
-
-
 				for byte in range(len(splitted)):
 
 					if isOffset:
 						isOffset=False
-						pos=1
 						if(nouvelleTrame(splitted[byte])):
 							if(len(trame)>=10 and not erreurDetectee):#Si la trame a au la taille min requise
 								if trames!="":
@@ -67,13 +61,13 @@ def tramesValides(nameFile):
 						else:
 							erreurDetectee=True
 							trame=""
-							print("Offset incorrect ligne : {}, {}, {} ,{}".format(numLigne,splitted[byte],ancienOffset,byteLu))
+							#print("Offset incorrect ligne : {}, {}, {} ,{}".format(numLigne,splitted[byte],ancienOffset,byteLu))
 							break
 
 					elif byte==1 or byte==2 :#pour les 3 espaces de l'offset
 						if splitted[byte]!="":
 							erreurDetectee=True
-							print("Offset de la ligne : {} n'est pas separé de 3 espaces des octets".format(numLigne))
+							#print("Offset de la ligne : {} n'est pas separé de 3 espaces des octets".format(numLigne))
 							break
 						else:
 							continue
@@ -84,7 +78,7 @@ def tramesValides(nameFile):
 						else:
 							erreurDetectee=True
 							trame=""
-							print("La ligne {} contient un octet : _{}_ qui ne respecte pas le format attendu".format(numLigne,splitted[byte]))
+							#print("La ligne {} contient un octet : _{}_ qui ne respecte pas le format attendu".format(numLigne,splitted[byte]))
 					else:
 						break
 
@@ -95,13 +89,15 @@ def tramesValides(nameFile):
 
 
 	fichier.close()
-	return trames
 
+
+	return trames
+"""
 
 trame=tramesValides("trameOffset.txt")
 print(trame)
 
-
+"""
 
 
 		

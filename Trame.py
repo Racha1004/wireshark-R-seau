@@ -1,7 +1,7 @@
 
 import Ethernet
 import IPv4
-import Tcp
+import Segment
 from Utils import hexToDec
 class Trame:
 	id=1
@@ -18,18 +18,17 @@ class Trame:
 	def analyse(self):
 		resuletatString="Trame numero {}:\n".format(self.id)
 		suite=""
-		print(len(self.trame))
 		if (len(self.trame)>14):
 			self.ethernet=Ethernet.Ethernet(self.trame)
 			suite+=self.ethernet.toString()
 
 			if(self.ethernet.type["Hexadecimal"]=="0800"):
-				if(len(self.ethernet.data)>20):
+				if(len(self.ethernet.data)>=40):
 					self.ipv4=IPv4.IPv4(self.ethernet.data)
 					suite+=self.ipv4.toString()
-					if(hexToDec(self.ipv4.protocol)==6):
-						#self.tcp=Tcp(self.ipv4.data)
-						print("Fin :{}".format(self.ipv4.data))
+					if(hexToDec(self.ipv4.protocol)==6 and len(self.ipv4.data)>=40):
+						self.tcp=Segment.Segment(self.ipv4.data)
+						suite+=self.tcp.toString()
 					else:
 						suite="Protocole encapsulé dans le paquest ip non traité(couche3)"
 				else:	
@@ -42,7 +41,24 @@ class Trame:
 		resuletatString+=suite
 		return (resuletatString)
 
+	def toString(self):
+		result="Trame numero {}:\n".format(self.id)
+		if Ethernet!=None:
+			result+=self.ethernet.toString()
+			result+="\n"
+			if self.ipv4!=None:
+				result+=self.ipv4.toString()
+				result+="\n"
+				if self.tcp!=None:
+					result+=self.tcp.toString()
+					result+="\n"
 
-trame=Trame("08002087b04408001108c06308004500004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029eafc81589070")
+		result=result[:-1]
+		return result
+		
+		
+
+trame=Trame("08002087b04408001108c06308004500007c3f860000fb0649afc0219f0684e33d05ffad13895c3e066a00000000a00240009c2e0000020405a0010303000101080a009e7bc400000000")
 r1=trame.analyse()
 print("{}".format(r1))
+

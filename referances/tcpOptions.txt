@@ -1,0 +1,130 @@
+Kind      Length Meaning             Reference
+        0-       End of Option List [RFC9293]
+        1-       No-Operation        [RFC9293]
+                 Maximum Segment
+        2       4Size                [RFC9293]
+        3       3Window Scale        [RFC7323]
+        4       2SACK Permitted [RFC2018]
+        5N       SACK                [RFC2018]
+                 Echo (obsoleted by
+        6       6option 8)           [RFC1072][RFC6247]
+                 Echo Reply
+                 (obsoleted by
+        7       6option 8)           [RFC1072][RFC6247]
+        8      10Timestamps          [RFC7323]
+                 Partial Order
+                 Connection
+                 Permitted
+        9       2(obsolete)          [RFC1693][RFC6247]
+                 Partial Order
+                 Service Profile
+       10       3(obsolete)          [RFC1693][RFC6247]
+       11        CC (obsolete)       [RFC1644][RFC6247]
+                 CC.NEW
+       12        (obsolete)          [RFC1644][RFC6247]
+                 CC.ECHO
+       13        (obsolete)          [RFC1644][RFC6247]
+                 TCP Alternate
+                 Checksum Request
+       14       3(obsolete)          [RFC1146][RFC6247]
+                 TCP Alternate
+                 Checksum Data
+       15N       (obsolete)          [RFC1146][RFC6247]
+       16        Skeeter             [Stev_Knowles]
+       17        Bubba               [Stev_Knowles]
+                 Trailer Checksum [Subbu_Subramaniam]
+       18       3Option              [Monroe_Bridges]
+                 MD5 Signature
+                 Option (obsoleted
+       19      18by option 29)       [RFC2385]
+       20        SCPS Capabilities [Keith_Scott]
+                 Selective Negative
+       21        Acknowledgements[Keith_Scott]
+       22        Record Boundaries [Keith_Scott]
+                 Corruption
+       23        experienced         [Keith_Scott]
+       24        SNAP                [Vladimir_Sukonnik]
+                 Unassigned
+                 (released 2000-12-
+       25        18)
+                 TCP Compression
+       26        Filter              [Steve_Bellovin]
+                 Quick-Start
+       27       8Response            [RFC4782]
+                 User Timeout
+                 Option (also, other
+                 known
+                 unauthorized use)
+       28       4[***][1]            [RFC5482]
+                 TCP Authentication
+       29        Option (TCP-AO) [RFC5925]
+                 Multipath TCP
+       30N       (MPTCP)             [RFC8684]
+                 Reserved (known
+                 unauthorized use
+                 without proper
+                 IANA assignment)
+       31        [**]
+                 Reserved (known
+                 unauthorized use
+                 without proper
+                 IANA assignment)
+       32        [**]
+                Reserved (known
+                unauthorized use
+                without proper
+                IANA assignment)
+     33         [**]
+                 TCP Fast Open
+      34variable Cookie              [RFC7413]
+35-68            Reserved
+                 Encryption
+                 Negotiation (TCP-
+      69N        ENO)                [RFC8547]
+                 Reserved (known
+                 unauthorized use
+                 without proper
+                 IANA assignment)
+      70         [**]
+71-75            Reserved
+                 Reserved (known
+                 unauthorized use
+                 without proper
+                 IANA assignment)
+      76         [**]
+                 Reserved (known
+                 unauthorized use
+                 without proper
+                 IANA assignment)
+      77         [**]
+                 Reserved (known
+                 unauthorized use
+                 without proper
+                 IANA assignment)
+      78         [**]
+79-171           Reserved
+                 Accurate ECN
+                 Order 0 (AccECN0)
+                 (TEMPORARY -
+                 registered 2022-08-
+                 03, expires 2023- [draft-ietf-tcpm-
+    172N         08-03)              accurate-ecn-20]
+    173          Reserved
+                 Accurate ECN
+                 Order 1 (AccECN1)
+                 (TEMPORARY -
+                 registered 2022-08-
+                 03, expires 2023- [draft-ietf-tcpm-
+    174N         08-03)              accurate-ecn-20]
+175-252          Reserved
+                 RFC3692-style
+                 Experiment 1 (also
+                 improperly used for
+                 shipping
+    253N              products) [*] [RFC4727]
+                 RFC3692-style
+                 Experiment 2 (also
+                 improperly used for
+                 shipping
+    254N              products) [*] [RFC4727]
+

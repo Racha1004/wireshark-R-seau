@@ -1,0 +1,22 @@
+Trame numero 2:
+Ethernet:
+	Adresse MAC Destination: 08:00:20:0A:AC:96
+	Adresse MAC Source: 08:00:20:0A:70:66
+	Type (Ox0800): Internet Protocol version 4 (IPv4)
+
+Internet Protocol:
+	Version: 4
+	Header Length: 60 bytes (15)
+	Differentiated Services Filed: 0x00
+	Total Length: 124
+	Identification: 0xCBC9 (52169)
+	Flags: 0x0000 
+ 		Reserved bit: 0
+		Don't fragment: 0
+		More fragments: 0
+	Fragment offset: 0
+	Time to live: 255
+	Protocol: TCP (6)
+	Header checksum: 0xB97F
+	Source: 132.227.61.5
+	Destination: 192.33.159.6

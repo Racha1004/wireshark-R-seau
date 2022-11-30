@@ -14,7 +14,7 @@ TYPES = dict(types)
 
 class IPv4:
 	def __init__(self,data):
-
+		print("ip:",data)
 		self.ip=data.upper()
 		self.version=self.ip[0:1]
 		self.ihl=self.ip[1:2]
@@ -38,85 +38,75 @@ class IPv4:
 		#SI on a pas d'option 
 		if(int(self.ihl,base=16)==5):
 			self.options=""
-			self.padding=""
+			#self.padding=""
 			self.data=self.ip[40:]
 		#40 octets d'options
 		else:
-			self.options=self.ip[40:118]#todo padding combien
-			self.padding=self.ip[118:120]
-		self.data=self.ip[120:]
+			self.options=self.ip[40:int(self.ihl,16)*4*2]#todo padding combien
+			#self.padding=self.ip[118:120]
+			self.data=self.ip[int(self.ihl,16)*4*2:]
 		
 
+
+
+	def analyseOptions(self):
+		OPTIONS = {"0":"End of Options List(EOOL)","1":"No Operation(NOP)","7":"Record Route (RR)", "68":"Time Stamp (TS)","131":"Loose Source Route (LSR)","137":"Strict Source Route (SSR)"}
+		result="\tOptions contenues: \n"
+		offset=0
+		try:
+			while(offset+2<=len(self.options)):
+				option=int(self.options[offset:offset+2],16)
+
+				s=str(option) 
+				value = OPTIONS.get(s)
+				if(s=="0" or s=="1"):
+					result+="\t\t{}: {} \n".format(option,OPTIONS[s])
+					offset+=2
+
+				elif value :
+					result+="\t\t{}: {} \n".format(option,OPTIONS[s])
+					offset+=int(self.options[offset+2:offset+4],16)*2
+				else:
+					break
+		except:
+			result+="\t\tType d'option non traité  (Supporté : EOOL,NOP,RR,TS,LSR,SSR)"
+			
+		if len(result)>len("\tOptions contenues: \n"):
+			result=result[:-1]
+		else:
+				result+="\t\t(Aucune)"
+		return result
 
 	def toString(self):
 		info=""
 		info+="\nInternet Protocol:\n\tVersion: {}\n\tHeader Length: {} bytes ({})\n".format(
-			self.version,Utils.hexToDec(self.ihl)*4,self.ihl)
+			self.version,Utils.hexToDec(self.ihl)*4,Utils.hexToDec(self.ihl))
 		info+="\tDifferentiated Services Filed: {}\n".format("0x"+self.tos)
 		info+="\tTotal Length: {}\n".format(Utils.hexToDec(self.totalLength))
 		info+="\tIdentification: {} ({})\n".format("0x"+self.identification,Utils.hexToDec(self.identification))
 		info+="\tFlags: {} \n \t\tReserved bit: {}\n\t\tDon't fragment: {}\n\t\tMore fragments: {}\n\tFragment offset: {}\n".format("0x"+self.flagsAndFragOffset,self.R,self.DF,self.MF,self.fragOffset)
 		info+="\tTime to live: {}\n".format(Utils.hexToDec(self.ttl))
-		info+="\tProtocol: {} ({})\n".format(Utils.hexToDec(self.protocol),TYPES[self.protocol])
+		info+="\tProtocol: {} ({})\n".format(TYPES[self.protocol],Utils.hexToDec(self.protocol))
 		info+="\tHeader checksum: {}\n".format("0x"+self.headerChecksum)
 		info+="\tSource: {}\n".format(Utils.formatIPAdress(self.sourceAdress))
 		info+="\tDestination: {}\n".format(Utils.formatIPAdress(self.destinationAdress))
+		#if(len(self.options)!=0):
+		info+=self.analyseOptions()
 		return info
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	"""
-	def analyser(self):
-		if(int(self.protocol,base=16)==6):
-			tcp=Tcp(self.data)
-			return tcp.analyser()
-		else:
-			return None
-
-	
-		def flagsInformation(test):
-			binaire=hexToBin(test)
-			binaire=binaire.zfill(16)
-			R=binaire[0:1]
-			DF=binaire[1:2]
-			MF=binaire[2:3]
-			fragOffset=binToDec(binaire[3:16])
-
-			return "\n \t\tReserved bit: {}\n\t\tDon't fragment: {}\n\t\tMore fragments: {}\n\tFragment offset: {}\n".format(
-				R,DF,MF,fragOffset)
-
-	def toDict(self):
-		dictStr='"IP":'
-		dictStr+='{{"Version":"{}","Header Length":{{"hexa":"{}","octet":"({} octets)"}},"TOS":{{"hexa":"{}","octet":"({})"}}'.format(
-        	self.version,"0x"+self.ihl,Utils.hexToDec(self.ihl)*4,"0x"+self.tos,Utils.hexToDec(self.tos))
-		dictStr+=',"Total Length":{{"hexa":"{}","octet":"({} octets)"}},"Identification": {{"hexa":"{}","octet":"({})"}}'.format(
-        	"0x"+self.totalLength, Utils.hexToDec(self.totalLength), "0x"+self.identification, Utils.hexToDec(self.identification))
-		frag="Fragmentation: "+self.flagsAndFragOffset+" (Reserve: {} - Don't Fragment: {} - More Fragments: {} - Fragment Offset: {})\n".format(
-        	self.R,self.DF,self.MF,self.fragOffset)
-		dictStr+=',"Fragmentation":"{}",'.format(frag)
-		dictStr+='"Time to live":{{"hexa":"{}","octet":"({})"}},"Protocole":{{"hexa":"{}","valeur":"{}" }},"Checksum Entete":"{}",'.format(
-        	"0x"+self.ttl, Utils.hexToDec(self.ttl), Utils.hexToDec(self.protocol), TYPES[self.protocol], "0x"+self.headerChecksum)
-		dictStr+='"Adresse Ip Source":"{}", "Adresse Ip Destination":"{}"}},'.format(Utils.formatIPAdress(self.sourceAdress), Utils.formatIPAdress(self.destinationAdress))
-		return dictStr
-		
-ipv4=IPv4("4f00007c3f860000fb0149afc0219f0684e33d0507272884e33c20c02c4112c0464705c0219f02c0219f06c0464706c02c411a84e33c1e84e33d87000000aa562f00000029368c410003862b08090a0b0c0de0f101112131415161718191a1b1c1d1e1f20212223242526272829a2b2c2d2e2f3031323334353637")
-print(ipv4.toDict()[0])
-
 """
+ip=IPv4("4500007c3f860000fb0149afc0219f0684e33d0507272884e33c20c02c4112c0464705c0219f02c0219f06c0464706c02c411a84e33c1e84e33d87000000aa562f00000029368c410003862b08090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637")
+print(ip.toString())
+"""
+
+
+
+
+
+
+
+
+
+
+
+

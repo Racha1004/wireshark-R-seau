@@ -1,13 +1,15 @@
 from Utils import * 
+import Trame
 class Trace:
 	def __init__(self,data):
-		self.listeDeTrames=[]
+		self.listeDeTrames=[]#Liste d'objets trame , ayant tous les champs initialisés
 		for trame in data:
-			print(trame)
-			self.listeDeTrames.append(parseTrame(trame))
+			self.listeDeTrames.append(Trame.Trame(trame))
 
-	def affiche(self):
-		i=0
+	def analyse(self):
+		resuletat=""
 		for trame in self.listeDeTrames:
-			print("Trame {} : {} \n".format(i,trame))
-			i+=1
+			resuletat+=trame.analyse()
+			resuletat+="\n"
+		resuletat=resuletat[:-1]
+		return resuletat
