@@ -1,22 +1,137 @@
-Trame numero 2:
+********************Trame numero 1********************
 Ethernet:
-	Adresse MAC Destination: 08:00:20:0A:AC:96
-	Adresse MAC Source: 08:00:20:0A:70:66
+	Adresse MAC Destination: 08:00:20:87:B0:44
+	Adresse MAC Source: 08:00:11:08:C0:63
 	Type (Ox0800): Internet Protocol version 4 (IPv4)
-
 Internet Protocol:
 	Version: 4
-	Header Length: 60 bytes (15)
+	Header Length: 20 bytes (5)
 	Differentiated Services Filed: 0x00
 	Total Length: 124
-	Identification: 0xCBC9 (52169)
+	Identification: 0x3F86 (16262)
 	Flags: 0x0000 
  		Reserved bit: 0
 		Don't fragment: 0
 		More fragments: 0
 	Fragment offset: 0
-	Time to live: 255
+	Time to live: 251
 	Protocol: TCP (6)
-	Header checksum: 0xB97F
-	Source: 132.227.61.5
-	Destination: 192.33.159.6
+	Header checksum: 0x49AF
+	Source: 192.33.159.6
+	Destination: 132.227.61.5
+	Options contenues: 
+		(Aucune)
+TCP:
+	Port Source: 0xFFAD(65453)
+	Port Destination 0x1389 (5001)
+	Numero Sequence: 0x5C3E066A (1547568746)
+	Numero ACK : 0x00000000(0)
+	THL : 0xa (40 octets)
+	Reserved : 0
+	URG : 0
+	ACK : 0
+	PSH : 0
+	RST : 0
+	SYN : 1
+	FIN : 0
+	Window : 0x4000
+	Checksum: 0x9C2E
+	Urgent Pointer : 0x0000
+
+	Options contenues:6 au total
+		Option 1: Maximum Segment Size
+			Type : 2
+			Longueur  : 4
+			MSS : 0x05A0 (1440)
+		Option 2: No-Operation
+			Type : 1
+		Option 3: Window Scale
+			Type : 3
+			Longueur  : 3
+			Shift : 0x00
+		Option 4: No-Operation
+			Type : 1
+		Option 5: No-Operation
+			Type : 1
+		Option 6: Timestamps
+			Type : 8
+			Longueur  : 10
+			Time Stamp Value : 0x009E7BC4
+			Time Echo Value : 0x00000000
+HTTP: Erreur de format au niveau de la COUCHE7 ----> on arrete l'analyse
+
+
+
+********************Trame numero 2********************
+Ethernet:
+	Adresse MAC Destination: 08:00:20:87:B0:44
+	Adresse MAC Source: 08:00:11:08:C0:63
+	Type (Ox0800): Internet Protocol version 4 (IPv4)
+Internet Protocol:
+	Version: 4
+	Header Length: 20 bytes (5)
+	Differentiated Services Filed: 0x00
+	Total Length: 124
+	Identification: 0x3F86 (16262)
+	Flags: 0x0000 
+ 		Reserved bit: 0
+		Don't fragment: 0
+		More fragments: 0
+	Fragment offset: 0
+	Time to live: 251
+	Protocol: TCP (6)
+	Header checksum: 0x49AF
+	Source: 192.33.159.6
+	Destination: 132.227.61.5
+	Options contenues: 
+		(Aucune)
+TCP:
+	Port Source: 0xFFAD(65453)
+	Port Destination 0x1389 (5001)
+	Numero Sequence: 0x5C3E066A (1547568746)
+	Numero ACK : 0x00000000(0)
+	THL : 0xa (40 octets)
+	Reserved : 0
+	URG : 0
+	ACK : 0
+	PSH : 0
+	RST : 0
+	SYN : 1
+	FIN : 0
+	Window : 0x4000
+	Checksum: 0x9C2E
+	Urgent Pointer : 0x0000
+
+	Options contenues:6 au total
+		Option 1: Maximum Segment Size
+			Type : 2
+			Longueur  : 4
+			MSS : 0x05A0 (1440)
+		Option 2: No-Operation
+			Type : 1
+		Option 3: Window Scale
+			Type : 3
+			Longueur  : 3
+			Shift : 0x00
+		Option 4: No-Operation
+			Type : 1
+		Option 5: No-Operation
+			Type : 1
+		Option 6: Timestamps
+			Type : 8
+			Longueur  : 10
+			Time Stamp Value : 0x009E7BC4
+			Time Echo Value : 0x00000000
+HTTP:
+	Request
+		 Methode : GET
+		 URL : /~spathis/
+		 Version : HTTP/1.1
+
+		Host: : www-npa.lip6.fr 
+		Connection: : keep-alive 
+		Upgrade-Insecure-Requests: : 1 
+		User-Agent: : Mozilla/5.0 
+		(Macintosh; : Intel 
+		Mac : OS 
+		X : 10_14_643 

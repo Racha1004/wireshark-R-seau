@@ -7,7 +7,6 @@ def hexToDec(test):
 	return int("0x"+test,base=16)
 
 def binToDec(test):
-	print("Bin to dec: ",test)
 	return int("0b"+test,base=2)
 
 def decToHex(test):
@@ -35,11 +34,12 @@ def formatIPAdress(adressIP):
 								hexToDec(adressIP[4:6]),
 								hexToDec(adressIP[6:8]))
 
+"""
 def outPut (data,fileName):
 	with open(fileName,"w") as output: 
 		output.write(data)
 	output.close()
-
+"""
 
 def afficheTrame (trameParsée):
 	trame=""
@@ -57,7 +57,7 @@ def afficheTrame (trameParsée):
 		trame+=trameParsée[i:i+2]+" "
 
 	trame=trame[:-1]
-	print(trame)
+	return trame
 
 def infoOption(liste,k):
 	for d in liste:
@@ -65,4 +65,18 @@ def infoOption(liste,k):
 			return d
 	return None 
 
+
+def asciiToString(ascii):
+	i=0
+	string=""
+	while(i+1<=len(ascii)-1):
+		string+=chr(hexToDec(ascii[i:i+2]))
+		i+=2
+	if len(ascii[i:])!=0:
+		string+=chr(hexToDec(ascii[i:]))
+	return string
+
+
+
 #afficheTrame("0812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc815890700812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc815890700812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc815890700812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc81589070")
+#print("_{}_".format(asciiToString("475a54")))
