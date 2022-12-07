@@ -200,7 +200,7 @@ def getTrace(FileName,resultatAnalyseTrame):
 		outPut(trameValide,cleanTrameFile) #On ecrit enregistre l'ensemble de nos bonnes trames dans un fichiers cleanTrames
 	except:
 		print("Veuillez selectionner un fichier existant !")
-
+		return None
 
 	#Aprés avoir enregistrées les trames à traiter, on les récupére du bon fichier(cleanTrames), et on commence :
 
@@ -216,7 +216,7 @@ def getTrace(FileName,resultatAnalyseTrame):
 		fichier.close()
 	except:
 		print("Etes vous sur d avoir tout creer pour le lancement du programme(fichier cleanTrames.txt manquant :(")
-		exit
+		return None
 
 	#Deuxieme chose on crée notre trace qui contiendra toutes les trames parsées (sous forme de chaines de caracteres)
 	#ainsi que la vraie structure trame appropiée à chaqu'un des messages capturés (C'est là qu'on delimite tous les champs)

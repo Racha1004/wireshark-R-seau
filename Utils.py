@@ -76,7 +76,32 @@ def asciiToString(ascii):
 		string+=chr(hexToDec(ascii[i:]))
 	return string
 
+class color:
+	b = '\033[94m' #bleu
+	g = '\033[92m' # vert
+	y = '\033[93m' # jaune
+	r = '\033[91m' # rouge
+	n = '\033[0m' #gris, couleur normale
+	m = '\033[95m'
 
+lipsum = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id, vulputate a, magna. Donec vehicula augue eu neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris ut leo. Cras viverra metus rhoncus sem. Nulla et lectus vestibulum urna fringilla ultrices. Phasellus eu tellus sit amet tortor gravida placerat. Integer sapien est, iaculis in, pretium quis, viverra ac, nunc. Praesent eget sem vel leo ultrices bibendum. Aenean faucibus. Morbi dolor nulla, malesuada eu, pulvinar at, mollis ac, nulla. Curabitur auctor semper nulla. Donec varius orci eget risus. Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam. Duis eget orci sit amet orci dignissim rutrum.'
+couleurs =[color.g,color.y,color.b,color.r,color.m]
 
+def colorise(text,i):
+	r=''
+	for c in text:
+		r+=couleurs[i] + c + color.n 
+	return r
+
+def adIPDistinctes(listeDeTrames):
+	listeIp=[]
+	for trame in listeDeTrames:
+		if not trame.erronee and (trame.tcp!=None or trame.http!=None):
+			if formatIPAdress(trame.ipv4.sourceAdress) not in listeIp:
+				listeIp.append(formatIPAdress(trame.ipv4.sourceAdress))
+			if formatIPAdress(trame.ipv4.destinationAdress) not in listeIp:
+				listeIp.append(formatIPAdress(trame.ipv4.destinationAdress))
+	return listeIp
+		
 #afficheTrame("0812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc815890700812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc815890700812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc815890700812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc81589070")
 #print("_{}_".format(asciiToString("475a54")))

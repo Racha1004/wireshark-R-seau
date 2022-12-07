@@ -147,6 +147,8 @@ class Tcp:
         msg+=" Seq={}".format(int("0x"+self.seqNum, 16))
         if self.ack =="1":
             msg+=" Ack={}".format(int("0x"+self.ackNum, 16))
+        if self.urg=="1":
+            msg+=" Urg Pointer={}".format(int("0x"+self.urg, 16))
         msg+=" Win={}".format(int("0x"+self.window,16))
         for op in self.option:
             if op.get("MSS"):

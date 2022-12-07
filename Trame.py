@@ -39,7 +39,7 @@ class Trame:
 							if len(self.ipv4.data)>=40:
 								self.tcp=Tcp.Tcp(self.ipv4.data)
 								suite+=self.tcp.toString()
-								if(not self.tcp.erronee and hexToDec(self.tcp.dstPort)==65453 or hexToDec(self.tcp.srcPort)==65453 and len(self.tcp.data)>0): #Remplacer 80
+								if(not self.tcp.erronee and (hexToDec(self.tcp.dstPort)==80 or hexToDec(self.tcp.srcPort)==80 )and len(self.tcp.data)>0): #Remplacer 80
 									self.http =Http.Http(self.tcp.data)
 									suite+=self.http.toString()
 
@@ -47,6 +47,8 @@ class Trame:
 										self.erronee=True
 
 								elif self.tcp.erronee:
+									self.erronee=True
+								elif (hexToDec(self.tcp.dstPort)==80 or hexToDec(self.tcp.srcPort)==80 )and len(self.tcp.data)==0:
 									self.erronee=True
 							else:
 								self.erronee=True
@@ -97,17 +99,16 @@ class Trame:
 				message=self.tcp.getMessage()
 		return message
 
-	def getMsgTerminal(self):
+	def getMsgTerminal(self,proto):
 		message=[]
-
-		if self.http!=None and not self.http.erronee:
+		if (proto=="" or proto=="HTTP") and self.http!=None and not self.http.erronee:
 			message.append("HTTP")
 			message.append(self.ipv4.sourceAdress)
 			message.append(self.tcp.srcPort)
 			message.append(self.http.getMessage())
 			message.append(self.ipv4.destinationAdress)
 			message.append(self.tcp.dstPort)
-		elif self.tcp!=None and not self.tcp.erronee:
+		elif (proto=="" or proto=="TCP") and  self.tcp!=None and not self.tcp.erronee:
 			message.append("TCP")
 			message.append(self.ipv4.sourceAdress)
 			message.append(self.tcp.srcPort)
@@ -115,24 +116,30 @@ class Trame:
 			message.append(self.ipv4.destinationAdress)
 			message.append(self.tcp.dstPort)
 			
-		elif self.ipv4!=None and not self.ipv4.erronee:
+		elif (proto=="" or proto=="IPV4") and self.ipv4!=None and not self.ipv4.erronee:
 			message.append("IPV4")
 			message.append(self.ipv4.sourceAdress)
 			message.append(self.ipv4.getMessage())
 			message.append(self.ipv4.destinationAdress)
-			if self.erronee:
-				message.append("(Trame erronée au niveau TCP))")
+			if self.tcp==None:
+				if self.erronee:
+					message.append("(Trame erronée au niveau TCP)")
+				else:
+					message.append("(Protocol non supporté)")
 			else:
-				message.append("(Protocol non supporté)")
-		elif self.ethernet!=None and not self.ethernet.erronee:
+				message.append("")
+		elif (proto=="" or proto=="ETHERNET")  and self.ethernet!=None and not self.ethernet.erronee:
 			message.append("ETHERNET")
 			message.append(self.ethernet.adresseSource)
 			message.append(self.ethernet.getMessage())
 			message.append(self.ethernet.adresseDest)
-			if self.erronee:
-				message.append("(Trame erronée au niveau IP)")
+			if self.ipv4==None:
+				if self.erronee:
+					message.append("(Trame erronée au niveau IP)")
+				else:
+					message.append("(Protocol non supporté)")
 			else:
-				message.append("(Protocol non supporté)")
+				message.append("")
 
 
 			
