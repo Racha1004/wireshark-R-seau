@@ -23,8 +23,11 @@ class Tcp:
         self.offsetReservedFlags = self.segment[24:28]
         
         binary = hexToBin(self.offsetReservedFlags)
+        binary=binary.zfill(16)
+
         self.thl = binary[0:4]
-        if binToDec(self.thl)*4>=20 and  binToDec(self.thl)*4<=len(self.segment):
+
+        if binToDec(self.thl)*4*2>=20 and  binToDec(self.thl)*4*2<=len(self.segment):
             self.reserved = binary[4:10]
 
             self.urg = binary[10:11]
@@ -122,8 +125,8 @@ class Tcp:
                 self.urg,self.ack,self.psh,self.rst,self.syn,self.fin,
             )
             
-            res+="\n\tWindow : {}\n\tChecksum: {}\n\tUrgent Pointer : {}\n".format(
-                "0x"+self.window, "0x"+self.checksum, "0x"+self.urgentPointer
+            res+="\n\tWindow : {} ({})\n\tChecksum: {}\n\tUrgent Pointer : {}\n".format(
+                "0x"+self.window,int("0x"+self.window,16), "0x"+self.checksum, "0x"+self.urgentPointer
             )
             res+=self.optionsToString()
         else:
@@ -142,7 +145,7 @@ class Tcp:
 
     def getMessage(self):
         msg=""
-        msg+="{}->{}".format(int("0x"+self.srcPort, 16),int("0x"+self.dstPort, 16))
+        msg+="TCP: {}->{}".format(int("0x"+self.srcPort, 16),int("0x"+self.dstPort, 16))
         msg+=" {}".format(self.getFlags())
         msg+=" Seq={}".format(int("0x"+self.seqNum, 16))
         if self.ack =="1":
@@ -153,13 +156,5 @@ class Tcp:
         for op in self.option:
             if op.get("MSS"):
                 msg+=" (MSS={})".format(int(op.get("MSS"),16))
-
         return msg
 
-
-"""
-data="ffad13895c3e066a00000000a00240009c2e0000020405a0010303000101080a009e7bc400000000"
-tst=Tcp(data)
-print(tst.toString())
-print(tst.getMessage())
-"""

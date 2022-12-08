@@ -34,12 +34,6 @@ def formatIPAdress(adressIP):
 								hexToDec(adressIP[4:6]),
 								hexToDec(adressIP[6:8]))
 
-"""
-def outPut (data,fileName):
-	with open(fileName,"w") as output: 
-		output.write(data)
-	output.close()
-"""
 
 def afficheTrame (trameParsée):
 	trame=""
@@ -102,6 +96,34 @@ def adIPDistinctes(listeDeTrames):
 			if formatIPAdress(trame.ipv4.destinationAdress) not in listeIp:
 				listeIp.append(formatIPAdress(trame.ipv4.destinationAdress))
 	return listeIp
-		
-#afficheTrame("0812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc815890700812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc815890700812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc815890700812002087b008001108c063080045004849ba00001e06698dc13733f6c1373304177096d4397f84c2bf3a21fd5018111c99bc00000e00313f02c0001100003ec100000011000000022828a7b08029e5fc81589070")
-#print("_{}_".format(asciiToString("475a54")))
+
+
+
+def filtre(listeDeTrames,protocol,adressM1,adressM2):
+	listeTramProto=[]
+	for trame in listeDeTrames:
+		if not trame.erronee:
+			if(protocol=="TCP" and trame.tcp!=None and not trame.tcp.erronee):
+				listeTramProto.append(trame)
+			elif(protocol=="HTTP" and trame.http!=None and not trame.http.erronee):
+				listeTramProto.append(trame)
+			elif(protocol=="ETHERNET" and trame.ethernet!=None and not trame.ethernet.erronee):
+				listeTramProto.append(trame)
+			elif(protocol=="IPV4" and trame.ipv4!=None and not trame.ipv4.erronee):
+				listeTramProto.append(trame)
+
+	listeTramAdress=[]
+	for trame in listeDeTrames:
+		if not trame.erronee:
+			if trame.ipv4!= None and ((formatIPAdress(trame.ipv4.sourceAdress)==adressM1 and formatIPAdress(trame.ipv4.destinationAdress)==adressM2) or
+			(formatIPAdress(trame.ipv4.sourceAdress)==adressM2 and formatIPAdress(trame.ipv4.destinationAdress)==adressM1) ):
+				listeTramAdress.append(trame)
+	result=[]
+	if(protocol!="" and adressM1!="" and  adressM2!=""):
+		result = [trame for trame in listeTramProto if trame in listeTramAdress]
+	elif  adressM1=="" and  adressM2=="":
+		result=listeTramProto
+	elif protocol=="":
+		result=listeTramAdress
+	
+	return result

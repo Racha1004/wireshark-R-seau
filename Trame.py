@@ -39,17 +39,21 @@ class Trame:
 							if len(self.ipv4.data)>=40:
 								self.tcp=Tcp.Tcp(self.ipv4.data)
 								suite+=self.tcp.toString()
-								if(not self.tcp.erronee and (hexToDec(self.tcp.dstPort)==80 or hexToDec(self.tcp.srcPort)==80 )and len(self.tcp.data)>0): #Remplacer 80
+
+
+								if(not self.tcp.erronee and ((hexToDec(self.tcp.dstPort)==80 or hexToDec(self.tcp.srcPort)==80 )or (hexToDec(self.tcp.dstPort)==80 or hexToDec(self.tcp.srcPort)==80))and len(self.tcp.data)>0): #Remplacer 80
+
 									self.http =Http.Http(self.tcp.data)
 									suite+=self.http.toString()
 
 									if self.http.erronee:
-										self.erronee=True
+										self.http=None
+									
+
 
 								elif self.tcp.erronee:
 									self.erronee=True
-								elif (hexToDec(self.tcp.dstPort)==80 or hexToDec(self.tcp.srcPort)==80 )and len(self.tcp.data)==0:
-									self.erronee=True
+								
 							else:
 								self.erronee=True
 						else:
@@ -140,19 +144,6 @@ class Trame:
 					message.append("(Protocol non supporté)")
 			else:
 				message.append("")
-
-
 			
 		return message
 		
-""""
-	def affiche(self):
-		elif self.ipv4!=None:
-				message+="IP Protocol : (Protocol encaplsulé pas IP non supporté)"
-			elif self.ethernet!=None:
-				message="(Protocol encaplsulé non supporté)"
-
-trame=Trame("08002087b04408001108c06308004500007c3f860000fb0649afc0219f0684e33d05ffad13895c3e066a00000000a00240009c2e0000020405a0010303000101080a009e7bc400000000474554202f7e737061746869732f20485454502f312e310d0a486f73743a207777772d6e70612e6c6970362e66720d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a557067726164652d496e7365637572652d52657175657374733a20310d0a557365722d4167656e743a204d6f7a696c6c612f352e3020284d6163696e746f73683b20496e74656c204d6163204f5320582031305f31345f3634330d0a0d0a")
-r1=trame.analyse()
-print("{}".format(r1))
-"""

@@ -1,7 +1,6 @@
 import Utils
 
 PATHREFERENCES = "./referances/"
-OUTPUTPATH = "./output/"
 with open(PATHREFERENCES+"ipProtocoles.txt", "r")as typeProto:
     typeProto.readline()
     types = []

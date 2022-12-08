@@ -14,16 +14,6 @@ with open(PATHREFERENCES+"methodshttp.csv", "r")as httpOp:
 httpOp.close()
 HTTPMETHODS=httpMethods
 
-"""
-with open(PATHREFERENCES+"http-status-codes-1.csv", "r")as status:
-    reader=csv.DictReader(status, delimiter=',')
-    statushttp = []
-    for ligne in reader:
-        statushttp.append((ligne))
-
-status.close()
-TCPOPTIONSTYPE=tcpOptions
-"""
 
 class Http:
     def __init__(self, data):
@@ -68,7 +58,7 @@ class Http:
                     if(len(ligneSplitted)%2!=0): #Si on a un nom de champs sans sa valeur en effet les 0x20
                                                 # separent chaque champs avec sa valeur donc il doit y'avoir 
                                                 #un nombre pair de val(cle,val)
-                        self.erronee=True
+                        #self.erronee=True
                         break
                     else:
                         i=0
@@ -78,7 +68,7 @@ class Http:
                                 value=Utils.asciiToString(ligneSplitted[i+1])
                                 dict[key]=value
                             else:
-                                self.erronee=True
+                                #self.erronee=True
                                 break
                             
                             i+=2
@@ -105,11 +95,10 @@ class Http:
     def is_request(self,isReq):
         
         if not  isReq in HTTPMETHODS:
-            self.erronee=True
             return False
         return True
 
-    def is_response(isRes):
+    def is_response(self,isRes):
         try:
             return isRes.startswith("HTTP/")
         except:
@@ -120,9 +109,10 @@ class Http:
         if not self.erronee:
             if(self.is_request(self.info1)):
                 res += "\n\tRequest\n\t\t Methode : {}\n\t\t URL : {}\n\t\t Version : {}\n". format(self.info1, self.info2,self.info3)
-            else:
+            elif self.is_response(self.info1):
                 res += "\n\tResponse\n\t\t Version : {}\n\t\t Code : {}\n\t\t Message : {}\n".format(self.info1, self.info2,self.info3)
-            
+            else: 
+                self.erronee=True
             for key in self.lignesEntete.keys():
                 res+="\n\t\t{} : {} ".format(key,self.lignesEntete.get(key))
         else:
@@ -130,11 +120,5 @@ class Http:
         return res
     
     def getMessage(self):
-        return " {} {} {} ". format(self.info1, self.info2,self.info3)
+        return "HTTP: {} {} {} ". format(self.info1, self.info2,self.info3)
 
-
-""""
-http =Http("474554202f7e737061746869732f20485454502f312e310d0a486f73743a207777772d6e70612e6c6970362e66720d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a557067726164652d496e7365637572652d52657175657374733a20310d0a557365722d4167656e743a204d6f7a696c6c612f352e3020284d6163696e746f73683b20496e74656c204d6163204f5320582031305f31345f3634330d0a0d0a")
-print(http.toString())
-print(http.getMessage())
-"""

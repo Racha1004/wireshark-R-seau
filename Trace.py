@@ -43,17 +43,6 @@ class Trace:
 			result=listeTramAdress
 		
 		return result
-	"""
-	def adIPDistinctes(self):
-		listeIp=[]
-		for trame in self.listeDeTrames:
-			if not trame.erronee and (trame.tcp!=None or trame.http!=None):
-				if formatIPAdress(trame.ipv4.sourceAdress) not in listeIp:
-					listeIp.append(formatIPAdress(trame.ipv4.sourceAdress))
-				if formatIPAdress(trame.ipv4.destinationAdress) not in listeIp:
-					listeIp.append(formatIPAdress(trame.ipv4.destinationAdress))
-		return listeIp
-	"""		
 
 	def listeTrameTCPetHTTP(self):
 		liste=[]
