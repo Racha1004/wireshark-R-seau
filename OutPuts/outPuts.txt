@@ -1,0 +1,176 @@
+
+
+
+********************Trame numero 2********************
+Ethernet:
+	Adresse MAC Destination: 08:00:20:87:B0:44
+	Adresse MAC Source: 08:00:11:08:C0:63
+	Type (Ox0800): Internet Protocol version 4 (IPv4)
+Internet Protocol:
+	Version: 4
+	Header Length: 20 bytes (5)
+	Differentiated Services Filed: 0x00
+	Total Length: 72
+	Identification: 0x49BA (18874)
+	Flags: 0x0000 
+ 		Reserved bit: 0
+		Don't fragment: 0
+		More fragments: 0
+	Fragment offset: 0
+	Time to live: 30
+	Protocol: TCP (6)
+	Header checksum: 0x698D
+	Source: 193.55.51.246
+	Destination: 193.55.51.4
+	Options contenues: 
+		(Aucune)
+TCP:
+	Port Source: 0x1770(6000)
+	Port Destination 0x96D4 (38612)
+	Numero Sequence: 0x397F84C2 (964658370)
+	Numero ACK : 0xBF3A21FD(3208258045)
+	THL : 0x5 (20 octets)
+	Reserved : 0
+	URG : 0
+	ACK : 1
+	PSH : 1
+	RST : 0
+	SYN : 0
+	FIN : 0
+	Window : 0x111C (4380)
+	Checksum: 0x99BC
+	Urgent Pointer : 0x0000
+
+	Options contenues:0 au total
+
+
+
+********************Trame numero 3********************
+Ethernet:
+	Adresse MAC Destination: 08:00:20:87:B0:44
+	Adresse MAC Source: 08:00:11:08:C0:63
+	Type (Ox0800): Internet Protocol version 4 (IPv4)
+Internet Protocol:
+	Version: 4
+	Header Length: 20 bytes (5)
+	Differentiated Services Filed: 0x00
+	Total Length: 72
+	Identification: 0x49BA (18874)
+	Flags: 0x0000 
+ 		Reserved bit: 0
+		Don't fragment: 0
+		More fragments: 0
+	Fragment offset: 0
+	Time to live: 30
+	Protocol: TCP (6)
+	Header checksum: 0x698D
+	Source: 193.55.51.246
+	Destination: 193.55.51.4
+	Options contenues: 
+		(Aucune)
+TCP:
+	Port Source: 0x1770(6000)
+	Port Destination 0x96D4 (38612)
+	Numero Sequence: 0x397F84C2 (964658370)
+	Numero ACK : 0xBF3A21FD(3208258045)
+	THL : 0x5 (20 octets)
+	Reserved : 0
+	URG : 0
+	ACK : 1
+	PSH : 1
+	RST : 0
+	SYN : 0
+	FIN : 0
+	Window : 0x111C (4380)
+	Checksum: 0x99BC
+	Urgent Pointer : 0x0000
+
+	Options contenues:0 au total
+
+
+
+********************Trame numero 4********************
+Ethernet:
+	Adresse MAC Destination: 08:00:20:87:B0:44
+	Adresse MAC Source: 08:00:11:08:C0:63
+	Type (Ox0800): Internet Protocol version 4 (IPv4)
+Internet Protocol:
+	Version: 4
+	Header Length: 20 bytes (5)
+	Differentiated Services Filed: 0x00
+	Total Length: 72
+	Identification: 0x49BA (18874)
+	Flags: 0x0000 
+ 		Reserved bit: 0
+		Don't fragment: 0
+		More fragments: 0
+	Fragment offset: 0
+	Time to live: 30
+	Protocol: TCP (6)
+	Header checksum: 0x698D
+	Source: 193.55.51.246
+	Destination: 193.55.51.4
+	Options contenues: 
+		(Aucune)
+TCP:
+	Port Source: 0x1770(6000)
+	Port Destination 0x96D4 (38612)
+	Numero Sequence: 0x397F84C2 (964658370)
+	Numero ACK : 0xBF3A21FD(3208258045)
+	THL : 0x5 (20 octets)
+	Reserved : 0
+	URG : 0
+	ACK : 1
+	PSH : 1
+	RST : 0
+	SYN : 0
+	FIN : 0
+	Window : 0x111C (4380)
+	Checksum: 0x99BC
+	Urgent Pointer : 0x0000
+
+	Options contenues:0 au total
+
+
+
+********************Trame numero 5********************
+Ethernet:
+	Adresse MAC Destination: 08:00:20:87:B0:44
+	Adresse MAC Source: 08:00:11:08:C0:63
+	Type (Ox0800): Internet Protocol version 4 (IPv4)
+Internet Protocol:
+	Version: 4
+	Header Length: 20 bytes (5)
+	Differentiated Services Filed: 0x00
+	Total Length: 72
+	Identification: 0x49BA (18874)
+	Flags: 0x0000 
+ 		Reserved bit: 0
+		Don't fragment: 0
+		More fragments: 0
+	Fragment offset: 0
+	Time to live: 30
+	Protocol: TCP (6)
+	Header checksum: 0x698D
+	Source: 193.55.51.246
+	Destination: 193.55.51.4
+	Options contenues: 
+		(Aucune)
+TCP:
+	Port Source: 0x1770(6000)
+	Port Destination 0x96D4 (38612)
+	Numero Sequence: 0x397F84C2 (964658370)
+	Numero ACK : 0xBF3A21FD(3208258045)
+	THL : 0x5 (20 octets)
+	Reserved : 0
+	URG : 0
+	ACK : 1
+	PSH : 1
+	RST : 0
+	SYN : 0
+	FIN : 0
+	Window : 0x111C (4380)
+	Checksum: 0x99BC
+	Urgent Pointer : 0x0000
+
+	Options contenues:0 au total
